@@ -33,7 +33,7 @@ function DashTab() {
 					<li className="sidebar-item">
                         <Link className="sidebar-link" to="/DashProfile">
                             <i className="bi bi-person align-middle" data-feather="user"></i> 
-                            <span className="align-middle">Profile</span>
+                            <span className="align-middle">Administration</span>
                         </Link>
 					</li>
 
@@ -44,28 +44,21 @@ function DashTab() {
                         </Link>
 					</li>
 
-					<li className="sidebar-item">
-						<Link className="sidebar-link" to="/login">
-                            <i className="bi bi-box-arrow-in-right align-middle" data-feather="user-plus"></i>
-                            <span className="align-middle">Sign Up</span>
-                        </Link>
-					</li>
-
 					<li className="sidebar-header">
-						Tools & Components
+						Autres et Composants
 					</li>
 
                     <li className="sidebar-item active">
 						<Link className="sidebar-link" to="/DashTab">
                             <i className="bi bi-card-list align-middle" data-feather="square"></i> 
-                            <span className="align-middle">Tab</span>
+                            <span className="align-middle">Données</span>
                         </Link>
 					</li>
 
 					<li className="sidebar-item">
 						<Link className="sidebar-link" to="/DashForm">
                             <i className="bi bi-ui-checks align-middle" data-feather="check-square"></i> 
-                            <span className="align-middle">Forms</span>
+                            <span className="align-middle">Formulaire</span>
                         </Link>
 					</li>
 
@@ -87,17 +80,6 @@ function DashTab() {
 						Plugins & Addons
 					</li>
 
-					<li className="sidebar-item">
-						<a className="sidebar-link" href="charts-chartjs.html">
-                            <i className="bi bi-bar-chart align-middle" data-feather="bar-chart-2"></i> <span className="align-middle">Charts</span>
-                        </a>
-					</li>
-
-					<li className="sidebar-item">
-						<a className="sidebar-link" href="maps-google.html">
-                            <i className="bi bi-map align-middle" data-feather="map"></i> <span className="align-middle">Maps</span>
-                        </a>
-					</li>
 				</ul>
 
 			</div>
@@ -112,31 +94,15 @@ function DashTab() {
                             <li className="nav-item dropdown">
                                 
                                 <a href="#" data-bs-toggle="dropdown" className="nav-icon pe-md-0">
-                                        {/* <div className="input-group">
-                                            <input
-                                                type={showPassword ? "text" : "password"}
-                                                className="form-control"
-                                                name="password"
-                                                id="password"
-                                                placeholder="Recherche"
-                                                
-                                            />
-                                            <button
-                                                type="button"
-                                                className="btn btn-outline-secondary btn-lg"
-                                                onClick={() => setShowPassword(!showPassword)}
-                                            >
-                                                {showPassword ? "Cacher" : "Afficher"}
-                                            </button>
-                                        </div> */}
+                                        
                                     <img src={profile} className="avatar img-fluid rounded" alt="image" />
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-end">
                                     <Link to="/DashboardProfile" className="dropdown-item">
-                                        <i className="bi bi-person pe-2"></i>Profile
+                                        <i className="bi bi-person pe-2"></i>Administration
                                     </Link>
                                     <Link to="" className="dropdown-item">
-                                        <i className="bi bi-gear pe-2"></i>Setting
+                                        <i className="bi bi-gear pe-2"></i>Paramètre
                                     </Link>
                                     <Link to="/Login" className="dropdown-item">
                                         <i className="bi bi-box-arrow-right pe-2"></i>Sortir

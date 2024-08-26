@@ -9,23 +9,32 @@ function AddModalCommune({ handleClose }) {
     nomcommune: ''
   });
 
+  const Clearform = () => {
+    setValues({
+      codecommune: '',
+      nomcommune: ''
+  });
+
+  }
+
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.post('http://localhost:4000/api/commune', values)
       .then(res => {
-        navigate(''); // Navigue vers la page d'accueil ou autre
-        handleClose();
-        
+        Clearform()
       })
       .catch(err => console.log(err));
   };
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
+
 
   return (
     
@@ -48,6 +57,7 @@ function AddModalCommune({ handleClose }) {
                     name='codecommune'
                     value={values.codecommune}
                     onChange={handleChange}
+                    required
                   />
                 </Grid>
                 <Grid item xs={12} sm={9}>

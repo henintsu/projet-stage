@@ -1,4 +1,16 @@
-.toogle-column
+
+.table-wrapper-temporaire {
+    overflow-y: auto;
+    max-height: 300px !important;
+  }
+
+  .table-responsive {
+    overflow: hidden;
+  }
+
+  .TabUser , table, th, td 
 {
-    display: none;
+    color: rgb(63, 63, 63) !important;
+    font-family: monospace;
+    white-space: nowrap !important;
 }

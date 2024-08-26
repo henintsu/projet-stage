@@ -6,10 +6,60 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 function Form() {
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({
+    ident: '',
+    numstat: '',
+    numentreprise: '',
+    lien: '',
+    datecreation: '',
+    datemodification: '',
+    typemaj: '',
+    nomproprietaire: '',
+    sigle: '',
+    adresseexercice: '',
+    communeexercice: '',
+    codecommuneexercice: '',
+    telephoneexercice: '',
+    bpexercice: '',
+    domicilecli: '', // correction ici
+    communecli: '',
+    codecommunecli: '',
+    telephonecli: '',
+    bpcli: '',
+    nationalitecli: '',
+    codenationalitecli: '',
+    principale: '', // Ajouté ici
+    secondaire1: '', // Ajouté ici
+    secondaire2: '', // Ajouté ici
+    total_salarie_mlg: '', // Ajouté ici
+    total_masculin: '',
+    total_feminin: '',
+    total_salarie_etg: '', // Ajouté ici
+    total_masc: '', // Ajouté ici
+    total_fem: '', // Ajouté ici
+    cincli: '',
+    cnaps: '',
+    numpatente: '',
+    formJ: '',
+    codeformj: '',
+    comptabilite: '',
+    Lchef: '',
+    qualite: '',
+    duplicata: '',
+    fonds: '',
+    coderegion: '',
+    codedistrict: '',
+    codecn: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
 
   const [communes, setCommunes] = useState([]);
   const [nationalites, setNationalites] = useState([]);
+
   const [imagePreviewUrl, setImagePreviewUrl] = useState('');
 
   const [selectedCommune1, setSelectedCommune1] = useState('');
@@ -21,7 +71,6 @@ function Form() {
   const [selectedNationalite, setSelectedNationalite] = useState('');
   const [selectedNationaliteCode, setSelectedNationaliteCode] = useState('');
 
-
   useEffect(() => {
     getCommune();
     getNationalite();
@@ -29,59 +78,76 @@ function Form() {
 
   const getCommune = () => {
     axios.get('http://localhost:4000/api/commune')
-      .then(res => setCommunes(res.data))
+      .then(res => {
+        console.log(res.data);
+        setCommunes(res.data);
+      })
       .catch(err => console.log(err));
-  }
-
+  };
+  
   const getNationalite = () => {
     axios.get('http://localhost:4000/api/nationalite')
-      .then(res => setNationalites(res.data))
+      .then(res => {
+        console.log(res.data);
+        setNationalites(res.data);
+      })
       .catch(err => console.log(err));
-  }
-
-
-  const handleCommuneChange1 = (event) => {
-    const selectedCommune = event.target.value;
-    setSelectedCommune1(selectedCommune);
-    const commune = communes.find(c => c.nomcommune === selectedCommune);
-    if (commune) {
-      setSelectedCommuneCode1(commune.codecommune);
-    } else {
-      setSelectedCommuneCode1('');
-    }
-    handleChange({ target: { name: 'CommuneExercice', value: selectedCommune } });
-    handleChange({ target: { name: 'CodeCommuneExercice', value: commune ? commune.codecommune : '' } });
   };
 
-  const handleCommuneChange2 = (event) => {
-    const selectedCommune = event.target.value;
-    setSelectedCommune2(selectedCommune);
-    const commune = communes.find(c => c.nomcommune === selectedCommune);
-    if (commune) {
-      setSelectedCommuneCode2(commune.codecommune);
-    } else {
-      setSelectedCommuneCode2('');
+  const handleImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreviewUrl(e.target.result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
     }
-    handleChange({ target: { name: 'communecli', value: selectedCommune } });
-    handleChange({ target: { name: 'codecommunecli', value: commune ? commune.codecommune : '' } });
   };
 
-  const handleNationaliteChange = (event) => {
-    const selectedNationalite = event.target.value;
-    setSelectedNationalite(selectedNationalite);
-    const nationalite = nationalites.find(n => n.nomnationalite === selectedNationalite);
-    if (nationalite) {
-      setSelectedNationaliteCode(nationalite.codenationalite);
-    } else {
-      setSelectedNationaliteCode('');
-    }
-    handleChange({ target: { name: 'nationalitecli', value: selectedNationalite } });
-    handleChange({ target: { name: 'codenationalitecli', value: nationalite ? nationalite.codenationalite : '' } });
-  };
+// Gestion des changements de sélection de commune et nationalité
+const handleCommuneChange1 = (event) => {
+  const selectedCommune = event.target.value;
+  const commune = communes.find(c => c.nomcommune === selectedCommune);
+  setSelectedCommune1(selectedCommune);
+  setSelectedCommuneCode1(commune ? commune.codecommune : '');
+  setValues(prevValues => ({
+    ...prevValues,
+    communeexercice: selectedCommune,
+    codecommuneexercice: commune ? commune.codecommune : ''
+  }));
+};
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
+const handleCommuneChange2 = (event) => {
+  const selectedCommune = event.target.value;
+  const commune = communes.find(c => c.nomcommune === selectedCommune);
+  setSelectedCommune2(selectedCommune);
+  setSelectedCommuneCode2(commune ? commune.codecommune : '');
+  setValues(prevValues => ({
+    ...prevValues,
+    communecli: selectedCommune,
+    codecommunecli: commune ? commune.codecommune : ''
+  }));
+};
+
+const handleNationaliteChange = (event) => {
+  const selectedNationalite = event.target.value;
+  const nationalite = nationalites.find(n => n.nomnationalite === selectedNationalite);
+  setSelectedNationalite(selectedNationalite);
+  setSelectedNationaliteCode(nationalite ? nationalite.codenationalite : '');
+  setValues(prevValues => ({
+    ...prevValues,
+    nationalitecli: selectedNationalite,
+    codenationalitecli: nationalite ? nationalite.codenationalite : ''
+  }));
+};
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:4000/api/repertoire', values)
+      .then(res => {
+        })
+      .catch(err => console.log(err));
   };
 
   return (
@@ -113,7 +179,7 @@ function Form() {
 						<h2 className='card-header color-text'>Formulaire</h2>
             <br />
 
-                  <form action="">
+                  <form onSubmit={handleSubmit}>
                     <Container maxWidth="lg">
                         <Grid container spacing={3} c>
                             <Grid item xs={12} md={6} className='px-2'>
@@ -124,72 +190,138 @@ function Form() {
                                     <Grid container spacing={2}>
                                         <Grid item xs={10} sm={3}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="N° stat"  name='numstat'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="N° statistique"  
+                                              name='numstat'
+                                              value={values.numstat}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={10} sm={3}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="ident" name='ident' />
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="ident" 
+                                              name='ident' 
+                                              value={values.ident}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={10} sm={3}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="n° entreprise" name='numentreprise'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="n° entreprise" 
+                                              name='numentreprise'
+                                              value={values.numentreprise}
+                                              onChange={handleChange}
+                                              required
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={10} sm={3}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="lien" name='lien'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control"
+                                              placeholder="lien" 
+                                              name='lien'
+                                              value={values.lien}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={12} sm={6}>
                                           <div className="card-body">
                                             <label htmlFor="datecreat">Date creation</label>
-                                            <input type="date" id='datecreat' className="form-control" placeholder="date creation" name='datecreation'/>
+                                            <input 
+                                              type="date" 
+                                              id='datecreat'
+                                              className="form-control" 
+                                              placeholder="date creation" 
+                                              name='datecreation'
+                                              value={values.datecreation}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={12} sm={6}>
                                           <div className="card-body">
                                             <label htmlFor="datedit">Date creation</label>
-                                            <input type="date" id='datedit' className="form-control" placeholder="date modification" name='datemodification'/>
+                                            <input 
+                                              type="date" 
+                                              id='datedit' 
+                                              className="form-control" 
+                                              placeholder="date modification" 
+                                              name='datemodification'
+                                              value={values.datemodification}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={12}>
-                                          <p className='mt-4 px-4'> <b>C</b>reation   ;    <b>M</b>odification   ;   <b>A</b>bandon   ;   <b>R</b>eprise   ;   m<b>U</b>tation   ;   Ré<b>E</b>nregistrement</p>
+                                          {/* <p className='mt-4 px-4'> <b>C</b>reation   ;    <b>M</b>odification   ;   <b>A</b>bandon   ;   <b>R</b>eprise   ;   m<b>U</b>tation   ;   Ré<b>E</b>nregistrement</p> */}
                                           <div className="card-body">
-                                            <select className="form-select mb-3">
+                                            <select className="form-select mb-3" name="typemaj" onChange={handleChange} value={values.typemaj}>
                                               <option selected>Type MAJ</option>
-                                              <option value="C">C</option>
-                                              <option value="M">M</option>
-                                              <option value="A">A</option>
-                                              <option value="R">R</option>
-                                              <option value="U">U</option>
-                                              <option value="E">E</option>
+                                              <option value="Creation">Creation</option>
+                                              <option value="Modification">Modification</option>
+                                              <option value="Abandon">Abandon</option>
+                                              <option value="Réprise">Réprise</option>
+                                              <option value="Mutation">Mutation</option>
+                                              <option value="Réenregistrement">Réenregistrement</option>
                                             </select>
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={12}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="nom proprietaire" name='nomproprietaire'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="nom proprietaire" 
+                                              name='nomproprietaire'
+                                              value={values.nomproprietaire}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={12}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="Sigle" name='sigle'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="Sigle" 
+                                              name='sigle'
+                                              value={values.sigle}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={12}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="Adresse exercice" name='adresseexercice'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="Adresse exercice" 
+                                              name='adresseeexercice'
+                                              value={values.adresseeexercice}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
@@ -221,12 +353,26 @@ function Form() {
 
                                         <Grid item xs={12} sm={6}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="telephone exercice" name='telexercice'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="telephone exercice" 
+                                              name='telephoneexercice'
+                                              value={values.telephoneexercice}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="boite postal exercice" name='bpexercice'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="boite postal exercice" 
+                                              name='bpexercice'
+                                              value={values.bpexercice}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
                                         
@@ -245,7 +391,14 @@ function Form() {
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="Domicile personne" name='domicileexercice'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="Domicile personne" 
+                                              name='domicilecli'
+                                              value={values.domicilecli}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
@@ -277,37 +430,72 @@ function Form() {
 
                                         <Grid item xs={12} sm={6}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="telephone personne" name='telpersonne'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="telephone personne" 
+                                              name='telephonecli'
+                                              value={values.telephonecli}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={12} sm={6}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="boite postal personne" name='bppersonne'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="boite postal personne" 
+                                              name='bpcli'
+                                              value={values.bpcli}
+                                              onChange={handleChange}
+                                            />
                                           </div>                                       
                                         </Grid>
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="cin personne" name='cinpersonne'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="cin personne" 
+                                              name='cincli'
+                                              value={values.cincli}
+                                              onChange={handleChange}
+                                            />
                                           </div>                                         
                                         </Grid>
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="n° cnaps" name='cnaps'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="n° cnaps" 
+                                              name='cnaps'
+                                              value={values.cnaps}
+                                              onChange={handleChange}
+                                            />
                                           </div>   
                                         </Grid>
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="n° patente" name='patente'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="n° patente"
+                                              name='numpatente'
+                                              value={values.numpatente}
+                                              onChange={handleChange}
+                                            />
                                           </div>   
                                         </Grid>
 
                                         <Grid item xs={12} sm={6}>
                                           <div className="card-body">                                  
-                                            <select className="form-select mb-3" >
+                                            <select className="form-select mb-3" name='formj' value={values.formJ} onChange={handleChange}>
                                               <option selected>Form j</option>
                                             </select>
                                           </div>
@@ -315,7 +503,7 @@ function Form() {
 
                                         <Grid item xs={12} sm={6}>
                                           <div className="card-body">                                  
-                                            <select className="form-select mb-3" >
+                                            <select className="form-select mb-3" name='codeformj' value={values.codeformj} onChange={handleChange}>
                                               <option selected>code form j</option>
                                             </select>
                                           </div>
@@ -323,7 +511,7 @@ function Form() {
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">                                  
-                                            <select className="form-select mb-3" >
+                                            <select className="form-select mb-3" name='comptabilite' value={values.comptabilite} onChange={handleChange}> 
                                               <option selected>compabilite</option>
                                               <option value="oui">oui</option>
                                               <option value="non">non</option>
@@ -333,7 +521,7 @@ function Form() {
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                              <select className="form-select mb-3" name="Lchef" >
+                                              <select className="form-select mb-3" name="lchef" value={values.Lchef} onChange={handleChange}>
                                                 <option value="Gl">Lchef</option>
                                                 <option value="Gl">Gl</option>
                                                 <option value="GS">GS</option>
@@ -349,7 +537,14 @@ function Form() {
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="qualite " name='qualite'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="qualite" 
+                                              name='qualite'
+                                              value={values.qualite}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
@@ -381,7 +576,7 @@ function Form() {
 
                                         <Grid item xs={12} sm={6}>
                                           <div className="card-body">
-                                              <select label="Duplicata" className="form-select mb-3" name="duplicata" >
+                                              <select label="Duplicata" className="form-select mb-3" name="duplicata" value={values.duplicata} onChange={handleChange}>
                                                 <option value="0">Duplicata</option>
                                                 <option value="0">0</option>
                                                 <option value="1">1</option>
@@ -394,25 +589,53 @@ function Form() {
 
                                         <Grid item xs={12} sm={6}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="Fonds " name='fonds'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="Fonds" 
+                                              name='fonds'
+                                              value={values.fonds}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="code region " name='coderegion'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="code region" 
+                                              name='coderegion'
+                                              value={values.coderegion}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="code district " name='codedistrict'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="code district " 
+                                              name='codedistrict'
+                                              value={values.codedistrict}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="code cn " name='code cn'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="code cn " 
+                                              name='codecn'
+                                              value={values.codecn}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
@@ -430,19 +653,40 @@ function Form() {
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="Activite principal" name='principal'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="Activite principal" 
+                                              name='principale'
+                                              value={values.principale}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={12}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="Activite secondaire1" name='secondaire1'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="Activite secondaire1" 
+                                              name='secondaire1'
+                                              value={values.secondaire1}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={12}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="Activite secondaire2" name='secondaire2'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="Activite secondaire2" 
+                                              name='secondaire2'
+                                              value={values.secondaire2}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
@@ -464,19 +708,40 @@ function Form() {
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="total salarie malagasy" name='totalmalagasy'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="total salarie malagasy" 
+                                              name='total_salarie_mlg'
+                                              value={values.total_salarie_mlg}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="total feminin" name='totalfeminin'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="total feminin" 
+                                              name='total_feminin'
+                                              value={values.total_feminin}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="total masculin" name='totalmasculin'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="total masculin" 
+                                              name='total_masculin'
+                                              value={values.total_masculin}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
@@ -494,19 +759,40 @@ function Form() {
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="total salarie etranger" name='totaletranger'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="total salarie etranger" 
+                                              name='total_salarie_etg'
+                                              value={values.total_salarie_etg}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="total feminin" name='totalfem'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="total feminin" 
+                                              name='total_fem'
+                                              value={values.total_fem}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
                                         <Grid item xs={10} sm={4}>
                                           <div className="card-body">
-                                            <input type="text" className="form-control" placeholder="total masculin" name='totalmasc'/>
+                                            <input 
+                                              type="text" 
+                                              className="form-control" 
+                                              placeholder="total masculin" 
+                                              name='total_masc'
+                                              value={values.total_masc}
+                                              onChange={handleChange}
+                                            />
                                           </div>
                                         </Grid>
 
@@ -517,7 +803,7 @@ function Form() {
 
                             <Grid item xs={12}  className='px-2 py-2'>
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
-                                <Button variant="contained" color="primary" type='submit' >Ajouter</Button><br />
+                                  <Button variant="contained" color="primary" type='submit' >Soumettre</Button><br />
                                 </Box>
                             </Grid>
                         </Grid>

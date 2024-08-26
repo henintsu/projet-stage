@@ -9,12 +9,6 @@
 } */
 
 
-.table-wrapper-commune {
-  /* flex-grow: 1 !important ; */
-  overflow-y: auto !important; /* Permet le défilement vertical */
-  max-height:200px !important; /* Ajuste la hauteur pour prendre en compte l'en-tête, etc. */
-}
-
 .table-responsive {
   display: block;
 }
@@ -49,7 +43,7 @@
       width: 100% !important;
   }
 
-  .table-wrapper-commune {
+  .table-wrapper-nationalite {
     overflow-y: auto;
     max-height: 420px !important;
   }
@@ -68,3 +62,10 @@
     font-weight: 600 !important;
     color: rgb(59, 59, 59) !important;
   }
+
+table, th, td 
+{
+    color: rgb(63, 63, 63) !important;
+    font-family: monospace;
+    white-space: nowrap !important;
+}

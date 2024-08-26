@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Card, CardContent, Container, Grid , Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import '../Commune/Commune.css';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
@@ -147,8 +147,8 @@ function Commune() {
                       <thead>
                           <tr>
                             <th>Identifiant</th>
-                            <th>Code_Commune</th>
-                            <th>Nom_Commune</th>
+                            <th>Code Commune</th>
+                            <th>Commune</th>
                             <th>******Action******</th>
                           </tr>
                       </thead>

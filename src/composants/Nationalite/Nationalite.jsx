@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Card, CardContent, Container, Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import {Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import '../Nationalite/Nationalite.css';
 import axios from 'axios';
 import AddModalNation from '../Modals/Nationalite/AddModalNation';
@@ -127,14 +127,14 @@ function Nationalite() {
                     </div>
 
                 </div>
-                <div className="table-wrapper-commune">
+                <div className="table-wrapper-nationalite">
                   <div className="table-responsive"></div>
                     <table class="table table-hover my-0">
                       <thead>
                           <tr>
                             <th>Identifiant</th>
-                            <th>Code_nationalite</th>
-                            <th>Nom_Nationalite</th>
+                            <th>Code nationalite</th>
+                            <th>Nationalite</th>
                             <th>******Action******</th>
                           </tr>
                       </thead>

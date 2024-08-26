@@ -22,7 +22,7 @@ function UpdateModalCommune({ commune, handleClose }) {
     try {
       const res = await axios.put(`http://localhost:8080/CommuneEdit/${commune.id}`, values);
       console.log(res.data);
-      handleClose();
+        handleClose();
     } catch (err) {
       console.log(err);
     }
@@ -54,6 +54,7 @@ function UpdateModalCommune({ commune, handleClose }) {
                       name="Code_commune"
                       value={values.codecommune}
                       onChange={handleChange}
+                      required
                     />
                   </Grid>
                   <Grid item xs={12} sm={9}>

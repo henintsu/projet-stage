@@ -18,16 +18,10 @@ function Contact() {
 
             <nav id="navmenu" className="navmenu">
                 <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="#">Services</Link></li>
-                <li className="dropdown"><a href="#"><span>Dropdown</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
-                    <ul>
-                        <li><Link to="#">Dropdown 1</Link></li>
-                        <li><Link to="#">Dropdown 2</Link></li>
-                        <li><Link to="#">Dropdown 3</Link></li>
-                    </ul>
-                </li>
-                <li><Link to="/contact" className="active">Contact</Link></li>
+                    <li><Link to="/">Home</Link></li>
+                    <Link to='/login'  className="btn-get-started">Se connecter</Link>
+                    <li><Link to="/contact" className="active">Contact</Link></li>
+                    <li><Link to="/formadd">S'inscrire</Link></li>                
                 </ul>
                 <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>

@@ -42,10 +42,10 @@ function Login() {
 					setTimeout(() => {
 						setOpenSnackbar(false);
 						navigate('/Dashboard');
-					}, 1000); // Close the Snackbar after 1 second and navigate to Dashboard
+					}, 2000); // Close the Snackbar after 1 second and navigate to Dashboard
 				} else {
 					setDialogMessage("Cet utilisateur n'existe pas, vérifiez votre email ou mot de passe !");
-					setOpenDialog(true); // Open the dialog
+					setOpenDialog(true);
 				}
 			})
 			.catch(err => {

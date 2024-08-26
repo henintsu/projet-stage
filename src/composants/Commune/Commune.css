@@ -68,3 +68,10 @@
     font-weight: 600 !important;
     color: rgb(59, 59, 59) !important;
   }
+
+  table, th, td 
+{
+    color: rgb(63, 63, 63) !important;
+    font-family: monospace;
+    white-space: nowrap !important;
+}

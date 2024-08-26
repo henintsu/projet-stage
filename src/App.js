@@ -18,6 +18,7 @@ import DashboardCommune from './composants/Commune/DashboardCommune';
 import DashboardNationalite from './composants/Nationalite/DashboardNationalite';
 import FormEdit from './composants/Forms/Edit/form/formedit';
 import DashFormEdit from './composants/Forms/Edit/form/DashFormEdit';
+import FormAdd from './composants/Users/utilisateur/body/FormAdd';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             {/* ******************** utilisateur ******************** */}
             <Route path='/' element={<Acceuil/>}></Route>
             <Route path='/contact' element={<Contact/>}></Route>
+            <Route path='/formadd' element={<FormAdd/>}></Route>
             <Route path='/login' element={<Login/>}></Route>
             <Route path='/inscription' element={<Inscription/>}></Route>
             <Route path='/profiles' element={<Profiles/>}></Route>

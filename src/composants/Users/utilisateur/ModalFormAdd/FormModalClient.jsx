@@ -60,6 +60,7 @@ function FormModalClient({ open, onClose }) {
 
   const [communes, setCommunes] = useState([]);
   const [nationalites, setNationalites] = useState([]);
+
   const [imagePreviewUrl, setImagePreviewUrl] = useState('');
 
   const [selectedCommune1, setSelectedCommune1] = useState('');
@@ -79,7 +80,7 @@ function FormModalClient({ open, onClose }) {
   const getCommune = () => {
     axios.get('http://localhost:4000/api/commune')
       .then(res => {
-        console.log(res.data); // Vérifiez les données reçues ici
+        console.log(res.data);
         setCommunes(res.data);
       })
       .catch(err => console.log(err));
@@ -88,7 +89,7 @@ function FormModalClient({ open, onClose }) {
   const getNationalite = () => {
     axios.get('http://localhost:4000/api/nationalite')
       .then(res => {
-        console.log(res.data); // Vérifiez les données reçues ici
+        console.log(res.data);
         setNationalites(res.data);
       })
       .catch(err => console.log(err));
@@ -113,8 +114,8 @@ function FormModalClient({ open, onClose }) {
     } else {
       setSelectedCommuneCode1('');
     }
-    handleChange({ target: { name: 'communecxercice', value: selectedCommune } });
-    handleChange({ target: { name: 'codecommunecxercice', value: commune ? commune.codecommune : '' } });
+    handleChange({ target: { name: 'communeexercice', value: commune ? commune.nomcommune : '' } });
+    handleChange({ target: { name: 'codecommuneexercice', value: commune ? commune.codecommune : '' } });
   };
 
   const handleCommuneChange2 = (event) => {
@@ -126,7 +127,7 @@ function FormModalClient({ open, onClose }) {
     } else {
       setSelectedCommuneCode2('');
     }
-    handleChange({ target: { name: 'communecli', value: selectedCommune } });
+    handleChange({ target: { name: 'communecli', value: commune ? commune.nomcommune : ''  } });
     handleChange({ target: { name: 'codecommunecli', value: commune ? commune.codecommune : '' } });
   };
 
@@ -139,11 +140,10 @@ function FormModalClient({ open, onClose }) {
     } else {
       setSelectedNationaliteCode('');
     }
-    handleChange({ target: { name: 'nationalitecli', value: selectedNationalite } });
-    handleChange({ target: { name: 'codeNationalitecli', value: nationalite ? nationalite.codenationalite : '' } });
+    handleChange({ target: { name: 'nationalitecli', value: nationalite ? nationalite.nomnationalite : '' } });
+    handleChange({ target: { name: 'codenationalitecli', value: nationalite ? nationalite.codenationalite : '' } });
   };
 
-  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -167,10 +167,10 @@ function FormModalClient({ open, onClose }) {
         <br />
           <form onSubmit={handleSubmit} method='post' > 
           <Container maxWidth="lg">
-            <Grid container spacing={3}>
+            <Grid  spacing={3}>
               {/* Exercice */}
-              <Grid item xs={12} md={6}>
-                <Card sx={{ boxShadow: 3, borderRadius: '10px' }}>
+              <Grid item xs={6}>
+                <Card sx={{ boxShadow: 3, borderRadius: '15px' }}>
                   <CardContent>
                     <h5 className="card-title">Exercice / Momba an'le asa atao</h5><br />
                     <Grid container spacing={2}>
@@ -191,11 +191,11 @@ function FormModalClient({ open, onClose }) {
                       </Grid>
 
                       <Grid item xs={12} sm={6}>
-                        <TextField fullWidth label="Date création" variant="outlined" placeholder="jj-mm-aaaa" name="datecreation" onChange={handleChange}  value={values.datecreation}/>
+                        <TextField fullWidth type='date' label="Date création" variant="outlined" placeholder="jj-mm-aaaa" name="datecreation" onChange={handleChange}  value={values.datecreation}/>
                       </Grid>
 
                       <Grid item xs={12} sm={6}>
-                        <TextField fullWidth label="Date modification" variant="outlined" placeholder="jj-mm-aaaa" name="datemodification" onChange={handleChange} value={values.datemodification}/>
+                        <TextField fullWidth type='date' label="Date modification" variant="outlined" placeholder="jj-mm-aaaa" name="datemodification" onChange={handleChange} value={values.datemodification}/>
                       </Grid>
 
                       <Grid item xs={12}>
@@ -237,10 +237,10 @@ function FormModalClient({ open, onClose }) {
                         </FormControl>
                       </Grid>
 
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
                           <InputLabel>Code commune</InputLabel>
-                          <Select label="Code commune" value={selectedCommuneCode1} name='codecommuneexercice'disabled>
+                          <Select label="Code commune" value={selectedCommuneCode1} onChange={handleCommuneChange1} name='codecommuneexercice'disabled>
                             <MenuItem value="">Sélectionner...</MenuItem>
                             {communes.map((commune, i) => (
                               <MenuItem key={i} value={commune.codecommune}>{commune.codecommune}</MenuItem>
@@ -263,7 +263,7 @@ function FormModalClient({ open, onClose }) {
               </Grid>
 
               {/* Domicile */}
-              <Grid item xs={12} md={6}>
+              <Grid item xs={6}>
                 <Card sx={{ boxShadow: 3, borderRadius: '10px' }}>
                   <CardContent>
                     <h5 className="card-title">Domicile / Fonenanao sy adiresy mazava </h5><br />
@@ -338,7 +338,7 @@ function FormModalClient({ open, onClose }) {
                           </FormControl>
                         </Grid>
 
-                        <Grid item xs={10} sm={4}>
+                        <Grid item xs={12} sm={6}>
                           <FormControl fullWidth variant="outlined">
                             <InputLabel>Comptabilite</InputLabel>
                             <Select label="Comptabilite" defaultValue="" name="comptabilite" onChange={handleChange} value={values.comptabilite}>
@@ -346,26 +346,27 @@ function FormModalClient({ open, onClose }) {
                               <MenuItem value="Oui">Oui</MenuItem>
                             </Select>
                           </FormControl>
+                        </Grid>                     
+
+                        <Grid item xs={12} sm={6}>
+                          <TextField fullWidth label="Qualite" variant="outlined" placeholder="A saisir" name="qualite" onChange={handleChange} value={values.qualite} />
                         </Grid>
 
-                        <Grid item xs={10} sm={4}>
+                        <Grid item xs={12}>
                           <FormControl fullWidth variant="outlined">
                             <InputLabel>Lchef</InputLabel>
                             <Select label="Lchef" defaultValue="" name="lchef" onChange={handleChange} value={values.lchef}>
-                              <MenuItem value="Gl">Gl</MenuItem>
-                              <MenuItem value="GS">GS</MenuItem>
-                              <MenuItem value="DS">DS</MenuItem>
-                              <MenuItem value="AS">AS</MenuItem>
-                              <MenuItem value="CC">CC</MenuItem>
-                              <MenuItem value="AU">AU</MenuItem>
-                              <MenuItem value="A">A</MenuItem>
-                              <MenuItem value="ND">ND</MenuItem>
+                              <MenuItem value="Gl">P : Proprietaire</MenuItem>
+                              <MenuItem value="Gl">GL : Gerant Libre</MenuItem>
+                              <MenuItem value="GS">GS : Gerant Salarié</MenuItem>
+                              <MenuItem value="DS">DS : Gerant Salarié : Directeur de Societe</MenuItem>
+                              <MenuItem value="AS">AS : Gerant Salarié : Agent de Societe</MenuItem>
+                              <MenuItem value="CC">CC : Gerant Salarié : Chef de Chantier</MenuItem>
+                              <MenuItem value="AU">CC : Gerant Salarié : Autres</MenuItem>
+                              <MenuItem value="A">A : Autre</MenuItem>
+                              <MenuItem value="ND">ND  : Non Declare</MenuItem>
                             </Select>
                           </FormControl>
-                        </Grid>
-
-                        <Grid item xs={10} sm={4}>
-                          <TextField fullWidth label="Qualite" variant="outlined" placeholder="A saisir" name="qualite" onChange={handleChange} value={values.qualite} />
                         </Grid>
 
                         <Grid item xs={12} sm={6}>
@@ -427,7 +428,7 @@ function FormModalClient({ open, onClose }) {
               </Grid>
 
               {/* Activité */}
-              <Grid item xs={12} md={6}>
+              <Grid item xs={6} >
                 <Card sx={{ boxShadow: 3, borderRadius: '10px' }}>
                   <CardContent>
                     <h5 className="card-title">Activité / Fototrasa </h5><br />
@@ -453,7 +454,7 @@ function FormModalClient({ open, onClose }) {
                 </Card>
               </Grid>
 
-              <Grid item xs={12} md={6} className='px-2'>
+              <Grid item xs={6} className='px-2'>
                 <Card>
                   <CardContent>
                     <h5 className="card-title">Salaries Malagasy / Mpiasa malagasy</h5>
@@ -494,7 +495,7 @@ function FormModalClient({ open, onClose }) {
               </Grid>
 
               {/* Image */}
-              <Grid item xs={12} md={6}>
+              <Grid item xs={6}>
                 <Card sx={{ boxShadow: 3, borderRadius: '10px' }}>
                   <CardContent>
                     <h5 className="card-title">Image</h5><br />

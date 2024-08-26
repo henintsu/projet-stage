@@ -31,7 +31,7 @@ function DashboardCommune() {
 					<li className="sidebar-item">
                         <Link className="sidebar-link" to="/DashProfile">
                             <i className="bi bi-person align-middle" data-feather="user"></i> 
-                            <span className="align-middle">Profile</span>
+                            <span className="align-middle">Administration</span>
                         </Link>
 					</li>
 
@@ -42,28 +42,21 @@ function DashboardCommune() {
                         </Link>
 					</li>
 
-					<li className="sidebar-item">
-						<Link className="sidebar-link" to="/login">
-                            <i className="bi bi-box-arrow-in-right align-middle" data-feather="user-plus"></i>
-                            <span className="align-middle">Sign Up</span>
-                        </Link>
-					</li>
-
 					<li className="sidebar-header">
-						Tools & Components
+						Autres et Composants
 					</li>
 
 					<li className="sidebar-item">
 						<Link className="sidebar-link" to="/DashTab">
                             <i className="bi bi-card-list align-middle" data-feather="square"></i> 
-                            <span className="align-middle">Tab</span>
+                            <span className="align-middle">Données</span>
                         </Link>
 					</li>
 
 					<li className="sidebar-item">
 						<Link className="sidebar-link" to="/DashForm">
                             <i className="bi bi-ui-checks align-middle" data-feather="check-square"></i> 
-                            <span className="align-middle">Forms</span>
+                            <span className="align-middle">Formulaire</span>
                         </Link>
 					</li>
 
@@ -84,20 +77,6 @@ function DashboardCommune() {
 					<li className="sidebar-header">
 						Plugins & Addons
 					</li>
-
-					<li className="sidebar-item">
-						<a className="sidebar-link" href="charts-chartjs.html">
-                            <i className="bi bi-bar-chart align-middle" data-feather="bar-chart-2"></i> 
-                            <span className="align-middle">Charts</span>
-                        </a>
-					</li>
-
-					<li className="sidebar-item">
-						<a className="sidebar-link" href="maps-google.html">
-                            <i className="bi bi-map align-middle" data-feather="map"></i> 
-                            <span className="align-middle">Maps</span>
-                        </a>
-					</li>
 				</ul>
 
 			</div>
@@ -115,10 +94,10 @@ function DashboardCommune() {
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-end">
                                     <Link to="/DashboardProfile" className="dropdown-item">
-                                        <i className="bi bi-person pe-2"></i>Profile
+                                        <i className="bi bi-person pe-2"></i>Administration
                                     </Link>
                                     <Link to="" className="dropdown-item">
-                                        <i className="bi bi-gear pe-2"></i>Setting
+                                        <i className="bi bi-gear pe-2"></i>Parametre
                                     </Link>
                                     <Link to="/Login" className="dropdown-item">
                                         <i className="bi bi-box-arrow-right pe-2"></i>Sortir

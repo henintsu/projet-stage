@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
-import "../TabUser/Style.css"
+import "../../Tab/TabUser/Style.css"
 
 
 function TabUser() {
@@ -50,7 +50,7 @@ function TabUser() {
     }
     
   return (
-    <div>
+    <div className='TabUser'>
         <div class="col-12 col-lg-12 col-xxl-9 d-flex">
             <div class="card flex-fill">
                 <div class="card-header d-flex justify-content-between">
@@ -75,54 +75,54 @@ function TabUser() {
 
                 <div className="table-wrapper-temporaire">
                 <div className="table-responsive">
-                <table class="table table-hover my-0 ">
+                <table class="table table-hover table-responsive-sm table-bordered my-0 ">
                     <thead>
-                        <tr>
+                        <tr className='table-active '>
                             <th>Id</th>
-                            <th>Ident</th>
-                            <th>N°_stat</th>
-                            <th>N°_entreprise</th>
+                            <th>Identification</th>
+                            <th>Numero stat</th>
+                            <th>Numero entreprise</th>
                             <th>Lien</th>
-                            <th>Date_creation(caché)</th>
-                            <th>Date_modification</th>
-                            <th>Type_maj</th>
-                            <th>Nom_proprietaire</th>
+                            <th>Date creation</th>
+                            <th>Date modification</th>
+                            <th>Type maj</th>
+                            <th>Nom proprietaire</th>
                             <th>Sigle</th>
-                            <th>Adresse_exercice</th>
-                            <th>Commune_exercice</th>
-                            <th>Code_Commune_exercice</th>
-                            <th>Telephone_exercice</th>
-                            <th>Bp_exercice</th>
-                            <th>Adresse_cli</th>
-                            <th>Commune_cli</th>
-                            <th>Code_Commune_cli</th>
-                            <th>Telephone_cli</th>
-                            <th>Bp_cli</th>
-                            <th>Nationalite_cli</th>
-                            <th>Code_Nationalite_cli</th>
-                            <th>Principale</th>
-                            <th>Secondaire1</th>
-                            <th>Secondaire2</th>
-                            <th>Total_salarie_mlg</th>
-                            <th>Total_masculin</th>
-                            <th>Total_feminin</th>
-                            <th>Total_salarie_etg</th>
-                            <th>Total_masc</th>
-                            <th>Total_fem</th>
+                            <th>Adresse exercice</th>
+                            <th>Commune exercice</th>
+                            <th>Code Commune exercice</th>
+                            <th>Telephone exercice</th>
+                            <th>Bp exercice</th>
+                            <th>Adresse </th>
+                            <th>Commune </th>
+                            <th>Code Commune </th>
+                            <th>Telephone</th>
+                            <th>Boite postal</th>
+                            <th>Nationalite</th>
+                            <th>Code Nationalite</th>
+                            <th>Activite Principale</th>
+                            <th>Activite Secondaire1</th>
+                            <th>Activite Secondaire2</th>
+                            <th>Total salarie mlagasy</th>
+                            <th>Total masculin</th>
+                            <th>Total feminin</th>
+                            <th>Total salarie etranger</th>
+                            <th>Total masculin</th>
+                            <th>Total feminin</th>
                             <th>Image</th>
-                            <th>Cin_cli</th>
+                            <th>Numero CIN</th>
                             <th>Cnaps</th>
-                            <th>Num_patente</th>
-                            <th>Form_j</th>
-                            <th>Code_Form_j</th>
+                            <th>Numero patente</th>
+                            <th>Form j</th>
+                            <th>Code Form j</th>
                             <th>Comptabilite</th>
                             <th>Lchef</th>
                             <th>Qualite</th>
                             <th>Duplicata</th>
                             <th>Fonds</th>
-                            <th>Code_Region</th>
-                            <th>Code_District</th>
-                            <th>Code_cn</th>
+                            <th>Code Region</th>
+                            <th>Code District</th>
+                            <th>Code cn</th>
                             <th>******Action******</th>
                         </tr>
                     </thead>
@@ -144,7 +144,7 @@ function TabUser() {
                             <td className="d-none d-xl-table-cell">{temporaire.codecommuneexercice}</td>
                             <td className="d-none d-xl-table-cell">{temporaire.telephoneexercice}</td>
                             <td className="d-none d-xl-table-cell">{temporaire.bpexercice}</td>
-                            <td className="d-none d-xl-table-cell">{temporaire.adressecli}</td>
+                            <td className="d-none d-xl-table-cell">{temporaire.domicilecli}</td>
                             <td className="d-none d-xl-table-cell">{temporaire.communecli}</td>
                             <td className="d-none d-xl-table-cell">{temporaire.codecommunecli}</td>
                             <td className="d-none d-xl-table-cell">{temporaire.telephonecli}</td>
