@@ -1,58 +1,69 @@
 import './App.css'
-import { BrowserRouter , Routes ,Route } from 'react-router-dom';
-import Dashboard from './composants/Dashboard/Dashboard';
-import DashForm from './composants/Forms/Add/form/DashForm';
-import Acceuil from './composants/Users/utilisateur/body/acceuil';
-import Contact from './composants/Users/utilisateur/body/contact';
-import Login from './composants/Login/Login';
-import Inscription from './composants/Inscription/Inscription';
-import Profiles from './composants/Profile/profile';
-import DashProfile from './composants/Profile/DashProfile';
-import TabAdmin from './composants/Tab/TabAdmin/TabAdmin';
-import TabUser from './composants/Tab/TabUser/TabUser';
-import Tab from './composants/Tab/Tab';
-import DashTab from './composants/Tab/DashTab';
-import Nationalite from './composants/Nationalite/Nationalite';
-import Commune from './composants/Commune/Commune';
-import DashboardCommune from './composants/Commune/DashboardCommune';
-import DashboardNationalite from './composants/Nationalite/DashboardNationalite';
-import FormEdit from './composants/Forms/Edit/form/formedit';
-import DashFormEdit from './composants/Forms/Edit/form/DashFormEdit';
-import FormAdd from './composants/Users/utilisateur/body/FormAdd';
-
+import {BrowserRouter , Routes , Route } from "react-router-dom"
+import Index from './composants/Acceuil/Index';
+import DemandeCarte from './composants/Acceuil/DemandeCarte';
+import MiniDrawer from './composants/Dashboard/MiniDrawer';
+import HeaderUi from './composants/Dashboard/Header.jsx';
+import { SitemarkIcon } from './composants/Pages/Connection/CustomIcons.jsx';
+import ForgotPassword from './composants/Pages/Connection/ForgotPassword.jsx';
+import Commune from './composants/Pages/Administration/Commune.jsx';
+import Nationalite from './composants/Pages/Administration/Nationalite.jsx';
+import FormJuridique from './composants/Pages/Administration/FormeJuridique.jsx';
+import FormulaireAjout from './composants/Pages/Administration/FormulaireAjout.jsx';
+import FormulaireModification from './composants/Pages/Administration/FormulaireModification.jsx';
+import Administration from './composants/Pages/Administration/Administration.jsx';
+import Repertoire from './composants/Pages/Administration/Repertoire.jsx';
+import SignInCard from './composants/Pages/Connection/SingInPage.jsx';
+import LoadingRetour from './composants/Pages/Autres/LoadingRetour.jsx';
+import Dashboard from './composants/Pages/Administration/Dashboard.jsx';
+import Loading from './composants/Pages/Autres/Loading.jsx'
+import { AuthProvider } from './composants/Pages/Connection/provider.jsx';
+import ProtectedRoute from './composants/Pages/Connection/protectedroute.jsx';
+import ResumeListe from './composants/Pages/Administration/ResumeListe.jsx';
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-          <Routes>
-            <Route path='/Dashboard' element={<Dashboard/>}></Route>
-            <Route path='/DashForm' element={<DashForm/>}></Route>
-            <Route path='/DashProfile' element={<DashProfile/>}></Route>
-            <Route path='/DashTab' element={<DashTab/>}></Route>
-            <Route path='/DashNationalite' element={<DashboardNationalite/>}></Route>
-            <Route path='/DashCommune' element={<DashboardCommune/>}></Route>
-            <Route path='/DashFormEdit' element={<DashFormEdit/>}></Route>
+      <AuthProvider>
+          <BrowserRouter>
+              <Routes>
 
-            {/* ******************** utilisateur ******************** */}
-            <Route path='/' element={<Acceuil/>}></Route>
-            <Route path='/contact' element={<Contact/>}></Route>
-            <Route path='/formadd' element={<FormAdd/>}></Route>
-            <Route path='/login' element={<Login/>}></Route>
-            <Route path='/inscription' element={<Inscription/>}></Route>
-            <Route path='/profiles' element={<Profiles/>}></Route>
-            <Route path='/tabadmin' element={<TabAdmin/>}></Route>
-            <Route path='/tabuser' element={<TabUser/>}></Route>
-            <Route path='/tab' element={<Tab/>}></Route>
-            <Route path='/nationalite' element={<Nationalite/>}></Route>
-            <Route path='/commune' element={<Commune/>}></Route>
-            <Route path='/formedit' element={<FormEdit/>}></Route>
+                {/* ===================ACCEUIL==================== */}
+                <Route path='/demadecarte-page' element={<DemandeCarte />} />
+                <Route path='/header-page' element={<HeaderUi />} />
 
-            {/* *********************Edit**************************** */}
-            <Route path='/DashFormEdit/:id' element={<DashFormEdit/>}></Route>
 
-          </Routes>
-      </BrowserRouter>
+                {/* =================== LODING ==================== */}
+                <Route path='/' element={<Index/>} />
+                <Route path='/loading-page' element={<Loading />} />
+                <Route path='/loading-retour' element={<LoadingRetour />} />
+
+
+                {/* =================== PROTECTED PAGES==================== */}
+                <Route path='/dashboard-page' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path='/commune-page' element={<ProtectedRoute><Commune/></ProtectedRoute>} />
+                <Route path='/nationalite-page' element={ <ProtectedRoute><Nationalite /></ProtectedRoute> } />
+                <Route path='/formj-page' element={<ProtectedRoute><FormJuridique /></ProtectedRoute>} />
+                <Route path='/formulaireajout-page' element={<ProtectedRoute><FormulaireAjout /></ProtectedRoute>} />
+                <Route path='/formulaire-modification/:id' element={<ProtectedRoute><FormulaireModification /></ProtectedRoute>} />
+                <Route path='/administration-page' element={<ProtectedRoute><Administration /></ProtectedRoute>} />
+                <Route path='/repertoire-page' element={<ProtectedRoute><Repertoire /></ProtectedRoute>} />
+                <Route path='/resume-page' element={<ProtectedRoute><ResumeListe /></ProtectedRoute>} />
+
+
+                {/* ===================MiniDrawer==================== */}
+                <Route path='/minidrawer' element={<MiniDrawer />} />
+
+
+                {/* ==================== CONNEXION ==================== */}
+                <Route path="/connexion-page" element={ <SignInCard /> } />
+                <Route path="/forgotpassword-page" element={ <ForgotPassword /> } />
+                <Route path="/sitemarkicon-page" element={ <SitemarkIcon /> } />
+
+                  
+              </Routes>
+          </BrowserRouter> 
+      </AuthProvider>
     </div>
   );
 }
